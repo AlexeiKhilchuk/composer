@@ -52,7 +52,7 @@ fun AdbDevice.runTests(
     val logsDir = File(File(outputDir, "logs"), adbDevice.id)
     val instrumentationOutputFile = File(logsDir, "instrumentation.output")
     val commandPrefix = if (useTestServices) {
-        "CLASSPATH=$(pm path android.support.test.services) app_process / android.support.test.services.shellexecutor.ShellMain "
+        "CLASSPATH=$(pm path androidx.test.services) app_process / androidx.test.services.shellexecutor.ShellMain "
     } else ""
 
     val runTests = process(
@@ -212,7 +212,7 @@ private fun saveLogcat(adbDevice: AdbDevice, logsDir: File): Observable<Pair<Str
                             false -> "${previous.logcat}\n$newline"
                         }
 
-                        // Implicitly expecting to see logs from `android.support.test.internal.runner.listener.LogRunListener`.
+                        // Implicitly expecting to see logs from `androidx.test.internal.runner.listener.LogRunListener`.
                         // Was not able to find more reliable solution to capture logcat per test.
                         val startedTest: Pair<String, String>? = newline.parseTestClassAndName()
                         val finishedTest: Pair<String, String>? = newline.parseTestClassAndName()
